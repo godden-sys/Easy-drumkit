@@ -15,7 +15,13 @@ from pathlib import Path
 from collections import deque
 
 import numpy as np
+#https://python-sounddevice.readthedocs.io/en/latest/installation.html
+# Set environment variable before importing sounddevice. Value is not important.
+os.environ["SD_ENABLE_ASIO"] = "1"
+
 import sounddevice as sd
+
+print(sd.query_hostapis())
 import soundfile as sf
 import rtmidi
 
@@ -227,6 +233,7 @@ class AudioEngine:
             blocksize=blocksize,
             callback=self._callback,
             latency="low",
+            device = 'ASIO4ALL v2, ASIO',
         )
 
     def start(self):
